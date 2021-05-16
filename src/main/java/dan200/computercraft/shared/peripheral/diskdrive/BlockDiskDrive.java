@@ -11,7 +11,6 @@ import javax.annotation.Nullable;
 
 import dan200.computercraft.shared.ComputerCraftRegistry;
 import dan200.computercraft.shared.common.BlockGeneric;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -28,10 +27,11 @@ import net.minecraft.util.Nameable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 
 public class BlockDiskDrive extends BlockGeneric {
     static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
-    static final EnumProperty<DiskDriveState> STATE = EnumProperty.of("state", DiskDriveState.class);
+    public static final EnumProperty<DiskDriveState> STATE = EnumProperty.of("state", DiskDriveState.class);
 
     public BlockDiskDrive(Settings settings) {
         super(settings, ComputerCraftRegistry.ModTiles.DISK_DRIVE);
@@ -76,5 +76,14 @@ public class BlockDiskDrive extends BlockGeneric {
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> properties) {
         properties.add(FACING, STATE);
+    }
+
+    // Implemented the same way as Minecraft does jukeboxes.
+    public void setDisk(WorldAccess world, BlockPos pos, BlockState state, ItemStack stack) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof TileDiskDrive) {
+            ((TileDiskDrive)blockEntity).setDiskStack(stack.copy());
+            world.setBlockState(pos, (BlockState)state.with(BlockDiskDrive.STATE, DiskDriveState.FULL), 2);
+        }
     }
 }

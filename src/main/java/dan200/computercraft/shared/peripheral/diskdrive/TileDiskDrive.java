@@ -71,24 +71,10 @@ public final class TileDiskDrive extends TileGeneric implements DefaultInventory
     @Nonnull
     @Override
     public ActionResult onActivate(PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (player.isInSneakingPose()) {
-            // Try to put a disk into the drive
-            ItemStack disk = player.getStackInHand(hand);
-            if (disk.isEmpty()) {
-                return ActionResult.PASS;
-            }
-            if (!this.getWorld().isClient && this.getStack(0).isEmpty() && MediaProviders.get(disk) != null) {
-                this.setDiskStack(disk);
-                player.setStackInHand(hand, ItemStack.EMPTY);
-            }
-            return ActionResult.SUCCESS;
-        } else {
-            // Open the GUI
-            if (!this.getWorld().isClient) {
-                player.openHandledScreen(this);
-            }
-            return ActionResult.SUCCESS;
+        if (!this.getWorld().isClient) {
+            player.openHandledScreen(this);
         }
+        return ActionResult.SUCCESS;
     }
 
     public Direction getDirection() {
