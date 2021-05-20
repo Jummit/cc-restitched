@@ -38,8 +38,8 @@ public class HTTPAPI implements ILuaAPI
     private final IAPIEnvironment apiEnvironment;
 
     private final ResourceGroup<CheckUrl> checkUrls = new ResourceGroup<>();
-    private final ResourceGroup<HttpRequest> requests = new ResourceQueue<>( () -> ComputerCraft.httpMaxRequests );
-    private final ResourceGroup<Websocket> websockets = new ResourceGroup<>( () -> ComputerCraft.httpMaxWebsockets );
+    private final ResourceGroup<HttpRequest> requests = new ResourceQueue<>( () -> ComputerCraft.getConfig().http.max_requests );
+    private final ResourceGroup<Websocket> websockets = new ResourceGroup<>( () -> ComputerCraft.getConfig().http.max_websockets );
 
     public HTTPAPI( IAPIEnvironment environment )
     {
@@ -156,7 +156,7 @@ public class HTTPAPI implements ILuaAPI
     @LuaFunction
     public final Object[] websocket( String address, Optional<Map<?, ?>> headerTbl ) throws LuaException
     {
-        if( !ComputerCraft.http_websocket_enable )
+        if( !ComputerCraft.getConfig().http.websocket_enable )
         {
             throw new LuaException( "Websocket connections are disabled" );
         }

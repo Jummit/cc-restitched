@@ -61,7 +61,7 @@ public final class ComputerCraftProxyCommon {
 
         ComputerCraftAPI.registerPeripheralProvider((world, pos, side) -> {
             BlockEntity tile = world.getBlockEntity(pos);
-            return ComputerCraft.enableCommandBlock && tile instanceof CommandBlockBlockEntity ?
+            return ComputerCraft.getConfig().peripheral.command_enabled && tile instanceof CommandBlockBlockEntity ?
                    new CommandBlockPeripheral((CommandBlockBlockEntity) tile) : null;
         });
 

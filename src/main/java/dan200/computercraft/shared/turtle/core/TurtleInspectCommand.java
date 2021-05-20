@@ -11,7 +11,6 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import com.google.common.collect.ImmutableMap;
 import dan200.computercraft.api.turtle.ITurtleAccess;
 import dan200.computercraft.api.turtle.ITurtleCommand;
 import dan200.computercraft.api.turtle.TurtleCommandResult;
@@ -19,12 +18,10 @@ import dan200.computercraft.api.turtle.event.TurtleBlockEvent;
 import dan200.computercraft.api.turtle.event.TurtleEvent;
 
 import dan200.computercraft.shared.peripheral.generic.data.BlockData;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 public class TurtleInspectCommand implements ITurtleCommand {

@@ -310,7 +310,7 @@ public class ServerComputer extends ServerTerminal implements IComputer, IComput
 
     @Override
     public long getComputerSpaceLimit() {
-        return ComputerCraft.computerSpaceLimit;
+        return ComputerCraft.getConfig().computer_space_limit;
     }
 
     @Nonnull

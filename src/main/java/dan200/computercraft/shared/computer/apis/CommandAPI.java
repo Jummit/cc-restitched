@@ -90,7 +90,7 @@ public class CommandAPI implements ILuaAPI {
                 result
             };
         } catch (Throwable t) {
-            if (ComputerCraft.logPeripheralErrors) {
+            if (ComputerCraft.getConfig().log_peripheral_errors) {
                 ComputerCraft.log.error("Error running command.", t);
             }
             return new Object[] {

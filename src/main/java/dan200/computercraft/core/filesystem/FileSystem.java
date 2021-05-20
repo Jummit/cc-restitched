@@ -397,8 +397,8 @@ public class FileSystem
     {
         synchronized( openFiles )
         {
-            if( ComputerCraft.maximumFilesOpen > 0 &&
-                openFiles.size() >= ComputerCraft.maximumFilesOpen )
+            if( ComputerCraft.getConfig().maximum_files_open > 0 &&
+                openFiles.size() >= ComputerCraft.getConfig().maximum_files_open )
             {
                 IoUtil.closeQuietly( file );
                 IoUtil.closeQuietly( channel );

@@ -163,7 +163,7 @@ final class MainThreadExecutor implements IWorkMonitor {
         // #tickCooling() isn't called, and so we didn't overrun the previous tick.
         if (this.currentTick != MainThread.currentTick()) {
             this.currentTick = MainThread.currentTick();
-            this.budget = ComputerCraft.maxMainComputerTime;
+            this.budget = ComputerCraft.getConfig().execution.max_main_computer_time;
         }
 
         this.budget -= time;
@@ -207,15 +207,15 @@ final class MainThreadExecutor implements IWorkMonitor {
     }
 
     /**
-     * Move this executor forward one tick, replenishing the budget by {@link ComputerCraft#maxMainComputerTime}.
+     * Move this executor forward one tick, replenishing the budget by {@link ModConfig.Execution.max_main_computer_time}.
      *
      * @return Whether this executor has cooled down, and so is safe to run again.
      */
     boolean tickCooling() {
         this.state = State.COOLING;
         this.currentTick = MainThread.currentTick();
-        this.budget = Math.min(this.budget + ComputerCraft.maxMainComputerTime, ComputerCraft.maxMainComputerTime);
-        if (this.budget < ComputerCraft.maxMainComputerTime) {
+        this.budget = Math.min(this.budget + ComputerCraft.getConfig().execution.max_main_computer_time, ComputerCraft.getConfig().execution.max_main_computer_time);
+        if (this.budget < ComputerCraft.getConfig().execution.max_main_computer_time) {
             return false;
         }
 

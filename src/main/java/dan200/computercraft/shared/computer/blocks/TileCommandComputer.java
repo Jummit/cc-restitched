@@ -80,7 +80,7 @@ public class TileCommandComputer extends TileComputer {
         if (server == null || !server.areCommandBlocksEnabled()) {
             player.sendMessage(new TranslatableText("advMode.notEnabled"), true);
             return false;
-        } else if (ComputerCraft.commandRequireCreative ? !player.isCreativeLevelTwoOp() : !server.getPlayerManager()
+        } else if (ComputerCraft.getConfig().command_require_creative ? !player.isCreativeLevelTwoOp() : !server.getPlayerManager()
                                                                                                   .isOperator(player.getGameProfile())) {
             player.sendMessage(new TranslatableText("advMode.notAllowed"), true);
             return false;

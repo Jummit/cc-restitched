@@ -75,20 +75,11 @@ import net.minecraft.util.registry.Registry;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import org.apache.http.client.utils.Idn;
 
 public final class ComputerCraftRegistry {
     public static final String MOD_ID = ComputerCraft.MOD_ID;
 
     public static void init() {
-        Object[] o = {
-            ModTiles.CABLE,
-            ModBlocks.CABLE,
-            ModItems.CABLE,
-            ModEntities.TURTLE_PLAYER,
-            ModContainers.COMPUTER,
-            };
-
         TurtleUpgrades.registerTurtleUpgrades();
         PocketUpgrades.registerPocketUpgrades();
     }

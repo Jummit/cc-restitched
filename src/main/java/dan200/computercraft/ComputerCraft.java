@@ -9,18 +9,6 @@ package dan200.computercraft;
 import static dan200.computercraft.shared.ComputerCraftRegistry.ModBlocks;
 import static dan200.computercraft.shared.ComputerCraftRegistry.init;
 
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-
-import dan200.computercraft.api.turtle.event.TurtleAction;
-import dan200.computercraft.core.apis.http.options.Action;
-import dan200.computercraft.core.apis.http.options.AddressRule;
-import dan200.computercraft.core.apis.http.websocket.Websocket;
 import dan200.computercraft.core.asm.GenericSource;
 import dan200.computercraft.shared.common.ColourableRecipe;
 import dan200.computercraft.shared.computer.core.ClientComputerRegistry;
@@ -31,15 +19,17 @@ import dan200.computercraft.shared.data.HasComputerIdLootCondition;
 import dan200.computercraft.shared.data.PlayerCreativeLootCondition;
 import dan200.computercraft.shared.media.recipes.DiskRecipe;
 import dan200.computercraft.shared.media.recipes.PrintoutRecipe;
-import dan200.computercraft.shared.peripheral.monitor.MonitorRenderer;
 import dan200.computercraft.shared.pocket.recipes.PocketComputerUpgradeRecipe;
 import dan200.computercraft.shared.proxy.ComputerCraftProxyCommon;
 import dan200.computercraft.shared.turtle.recipes.TurtleRecipe;
 import dan200.computercraft.shared.turtle.recipes.TurtleUpgradeRecipe;
-import dan200.computercraft.shared.util.Config;
 import dan200.computercraft.shared.util.ImpostorRecipe;
 import dan200.computercraft.shared.util.ImpostorShapelessRecipe;
 import dan200.computercraft.shared.util.ServiceUtil;
+import dan200.computercraft.shared.util.ModConfig;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -56,7 +46,6 @@ import net.fabricmc.loader.api.FabricLoader;
 
 public final class ComputerCraft implements ModInitializer {
     public static final String MOD_ID = "computercraft";
-    // Configuration options
     public static final int terminalWidth_computer = 51;
     public static final int terminalHeight_computer = 19;
     public static final int terminalWidth_turtle = 39;
@@ -69,53 +58,11 @@ public final class ComputerCraft implements ModInitializer {
     // Logging
     public static final Logger log = LogManager.getLogger(MOD_ID);
     public static ItemGroup MAIN_GROUP = FabricItemGroupBuilder.build(new Identifier(MOD_ID, "main"), () -> new ItemStack(ModBlocks.COMPUTER_NORMAL));
-    public static boolean commandRequireCreative = false;
-    public static MonitorRenderer monitorRenderer = MonitorRenderer.BEST;
-    public static int computerSpaceLimit = 1000 * 1000;
-    public static int floppySpaceLimit = 125 * 1000;
-    public static int maximumFilesOpen = 128;
-    public static boolean disable_lua51_features = false;
-    public static String default_computer_settings = "";
-    public static boolean debug_enable = true;
-    public static boolean logPeripheralErrors = false;
-    public static int computer_threads = 1;
-    public static long maxMainGlobalTime = TimeUnit.MILLISECONDS.toNanos(10);
-    public static long maxMainComputerTime = TimeUnit.MILLISECONDS.toNanos(5);
-    public static boolean http_enable = true;
-    public static boolean http_websocket_enable = true;
-    public static int httpTimeout = 30000;
-    public static int httpMaxRequests = 16;
-    public static long httpMaxDownload = 16 * 1024 * 1024;
-    public static long httpMaxUpload = 4 * 1024 * 1024;
-    public static int httpMaxWebsockets = 4;
-    public static int httpMaxWebsocketMessage = Websocket.MAX_MESSAGE_SIZE;
-    public static boolean enableCommandBlock = false;
-    public static int modem_range = 64;
-    public static int modem_highAltitudeRange = 384;
-    public static int modem_rangeDuringStorm = 64;
-    public static int modem_highAltitudeRangeDuringStorm = 384;
-    public static int maxNotesPerTick = 8;
-    public static boolean turtlesNeedFuel = true;
-    public static int turtleFuelLimit = 20000;
-    public static int advancedTurtleFuelLimit = 100000;
-    public static boolean turtlesObeyBlockProtection = true;
-    public static boolean turtlesCanPush = true;
-    public static EnumSet<TurtleAction> turtleDisabledActions = EnumSet.noneOf(TurtleAction.class);
-    public static int monitorWidth = 8;
-    public static int monitorHeight = 6;
-    public static double monitorDistanceSq = 4096;
-
-    public static List<AddressRule> httpRules = Collections.unmodifiableList( Arrays.asList(
-        AddressRule.parse( "$private", null, Action.DENY.toPartial() ),
-        AddressRule.parse( "*", null, Action.ALLOW.toPartial() )
-    ) );
+    public static ModConfig config = null;
 
     @Override
     public void onInitialize() {
-        Config.load(Paths.get(FabricLoader.getInstance()
-                                          .getConfigDir()
-                                          .toFile()
-                                          .getPath(), MOD_ID + ".json5"));
+        AutoConfig.register(ModConfig.class, Toml4jConfigSerializer::new);
         ComputerCraftProxyCommon.init();
         Registry.register(Registry.RECIPE_SERIALIZER, new Identifier(ComputerCraft.MOD_ID, "colour"), ColourableRecipe.SERIALIZER);
         Registry.register(Registry.RECIPE_SERIALIZER, new Identifier(ComputerCraft.MOD_ID, "computer_upgrade"), ComputerUpgradeRecipe.SERIALIZER);
@@ -137,6 +84,13 @@ public final class ComputerCraft implements ModInitializer {
             ResourceManagerHelper.registerBuiltinResourcePack(new Identifier(MOD_ID, "classic"), modContainer, ResourcePackActivationType.NORMAL);
 			ResourceManagerHelper.registerBuiltinResourcePack(new Identifier(MOD_ID, "overhaul"), modContainer, ResourcePackActivationType.NORMAL);
         });
+    }
+
+    public static ModConfig getConfig() {
+        if (config == null) {
+            config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
+        }
+        return config;
     }
 
 }

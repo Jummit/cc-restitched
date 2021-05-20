@@ -9,7 +9,6 @@ package dan200.computercraft.shared.util;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
 
 import dan200.computercraft.api.turtle.FakePlayer;
 import io.netty.channel.ChannelHandlerContext;

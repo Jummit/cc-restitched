@@ -141,7 +141,7 @@ public final class NetworkUtils {
      * @throws HTTPRequestException If the host is not permitted
      */
     public static Options getOptions(String host, InetSocketAddress address) throws HTTPRequestException {
-        Options options = AddressRule.apply( ComputerCraft.httpRules, host, address );
+        Options options = AddressRule.apply( ComputerCraft.getConfig().http.rules, host, address );
         if (options.action == Action.DENY) {
             throw new HTTPRequestException("Domain not permitted");
         }

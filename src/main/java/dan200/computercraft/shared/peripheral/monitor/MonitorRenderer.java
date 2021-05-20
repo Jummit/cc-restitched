@@ -45,7 +45,7 @@ public enum MonitorRenderer {
      */
     @Nonnull
     public static MonitorRenderer current() {
-        MonitorRenderer current = ComputerCraft.monitorRenderer;
+        MonitorRenderer current = ComputerCraft.getConfig().monitor_renderer;
         switch (current) {
         case BEST:
             return best();
@@ -53,7 +53,7 @@ public enum MonitorRenderer {
             checkCapabilities();
             if (!textureBuffer) {
                 ComputerCraft.log.warn("Texture buffers are not supported on your graphics card. Falling back to default.");
-                ComputerCraft.monitorRenderer = BEST;
+                ComputerCraft.getConfig().monitor_renderer = BEST;
                 return best();
             }
 

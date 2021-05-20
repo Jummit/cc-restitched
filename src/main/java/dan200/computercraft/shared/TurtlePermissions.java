@@ -28,7 +28,7 @@ public final class TurtlePermissions {
 
     @Subscribe
     public void onTurtleAction(TurtleActionEvent event) {
-        if (ComputerCraft.turtleDisabledActions.contains(event.getAction())) {
+        if (ComputerCraft.getConfig().turtle.disabled_actions.contains(event.getAction())) {
             event.setCanceled(true, "Action has been disabled");
         }
     }

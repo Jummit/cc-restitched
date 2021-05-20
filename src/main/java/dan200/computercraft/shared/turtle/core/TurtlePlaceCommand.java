@@ -357,7 +357,7 @@ public class TurtlePlaceCommand implements ITurtleCommand {
             return false;
         }
 
-        if (ComputerCraft.turtlesObeyBlockProtection) {
+        if (ComputerCraft.getConfig().turtle.obey_block_protection) {
             // Check spawn protection
             boolean editable = replaceable ? TurtlePermissions.isBlockEditable(world, position, player) : TurtlePermissions.isBlockEditable(world,
                                                                                                                                             position.offset(

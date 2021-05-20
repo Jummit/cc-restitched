@@ -73,7 +73,7 @@ public abstract class ItemComputerBase extends BlockItem implements IComputerIte
         if (family != ComputerFamily.COMMAND) {
             int id = this.getComputerID(stack);
             if (id >= 0) {
-                return ComputerCraftAPI.createSaveDirMount(world, "computer/" + id, ComputerCraft.computerSpaceLimit);
+                return ComputerCraftAPI.createSaveDirMount(world, "computer/" + id, ComputerCraft.getConfig().computer_space_limit);
             }
         }
         return null;

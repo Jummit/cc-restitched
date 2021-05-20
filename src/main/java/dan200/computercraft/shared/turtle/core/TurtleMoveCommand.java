@@ -66,7 +66,7 @@ public class TurtleMoveCommand implements ITurtleCommand {
                                     .offset(newPosition.getX(), newPosition.getY(), newPosition.getZ());
 
         if (!oldWorld.intersectsEntities(null, collision)) {
-            if (!ComputerCraft.turtlesCanPush || this.m_direction == MoveDirection.UP || this.m_direction == MoveDirection.DOWN) {
+            if (!ComputerCraft.getConfig().turtle.can_push || this.m_direction == MoveDirection.UP || this.m_direction == MoveDirection.DOWN) {
                 return TurtleCommandResult.failure("Movement obstructed");
             }
 
@@ -127,7 +127,7 @@ public class TurtleMoveCommand implements ITurtleCommand {
         }
 
         // Check spawn protection
-        if (ComputerCraft.turtlesObeyBlockProtection && !TurtlePermissions.isBlockEnterable(world, position, turtlePlayer)) {
+        if (ComputerCraft.getConfig().turtle.obey_block_protection && !TurtlePermissions.isBlockEnterable(world, position, turtlePlayer)) {
             return TurtleCommandResult.failure("Cannot enter protected area");
         }
 

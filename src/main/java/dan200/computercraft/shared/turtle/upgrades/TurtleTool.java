@@ -208,7 +208,7 @@ public class TurtleTool extends AbstractTurtleUpgrade {
         TurtlePlayer turtlePlayer = TurtlePlaceCommand.createPlayer(turtle, turtlePosition, direction);
         turtlePlayer.loadInventory(this.item.copy());
 
-        if (ComputerCraft.turtlesObeyBlockProtection) {
+        if (ComputerCraft.getConfig().turtle.obey_block_protection) {
             if (!TurtlePermissions.isBlockEditable(world, blockPosition, turtlePlayer)) {
                 return TurtleCommandResult.failure("Cannot break protected block");
             }

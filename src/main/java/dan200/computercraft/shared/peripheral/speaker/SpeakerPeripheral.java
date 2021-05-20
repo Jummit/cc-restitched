@@ -83,7 +83,7 @@ public abstract class SpeakerPeripheral implements IPeripheral {
     }
 
     private synchronized boolean playSound(ILuaContext context, Identifier name, float volume, float pitch, boolean isNote) throws LuaException {
-        if (this.m_clock - this.m_lastPlayTime < TileSpeaker.MIN_TICKS_BETWEEN_SOUNDS && (!isNote || this.m_clock - this.m_lastPlayTime != 0 || this.m_notesThisTick.get() >= ComputerCraft.maxNotesPerTick)) {
+        if (this.m_clock - this.m_lastPlayTime < TileSpeaker.MIN_TICKS_BETWEEN_SOUNDS && (!isNote || this.m_clock - this.m_lastPlayTime != 0 || this.m_notesThisTick.get() >= ComputerCraft.getConfig().peripheral.max_notes_per_tick)) {
             // Rate limiting occurs when we've already played a sound within the last tick, or we've
             // played more notes than allowable within the current tick.
             return false;

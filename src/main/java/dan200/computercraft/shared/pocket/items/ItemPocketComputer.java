@@ -364,7 +364,7 @@ public class ItemPocketComputer extends Item implements IComputerItem, IMedia, I
     public IMount createDataMount(@Nonnull ItemStack stack, @Nonnull World world) {
         int id = this.getComputerID(stack);
         if (id >= 0) {
-            return ComputerCraftAPI.createSaveDirMount(world, "computer/" + id, ComputerCraft.computerSpaceLimit);
+            return ComputerCraftAPI.createSaveDirMount(world, "computer/" + id, ComputerCraft.getConfig().computer_space_limit);
         }
         return null;
     }

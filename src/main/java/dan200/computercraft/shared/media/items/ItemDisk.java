@@ -102,7 +102,7 @@ public class ItemDisk extends Item implements IMedia, IColouredItem {
             diskID = ComputerCraftAPI.createUniqueNumberedSaveDir(world, "disk");
             setDiskID(stack, diskID);
         }
-        return ComputerCraftAPI.createSaveDirMount(world, "disk/" + diskID, ComputerCraft.floppySpaceLimit);
+        return ComputerCraftAPI.createSaveDirMount(world, "disk/" + diskID, ComputerCraft.getConfig().floppy_space_limit);
     }
 
     @Override

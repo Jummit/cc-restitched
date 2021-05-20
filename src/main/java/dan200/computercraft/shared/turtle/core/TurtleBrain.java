@@ -354,7 +354,7 @@ public class TurtleBrain implements ITurtleAccess {
 
     @Override
     public boolean isFuelNeeded() {
-        return ComputerCraft.turtlesNeedFuel;
+        return ComputerCraft.getConfig().turtle.need_fuel;
     }
 
     @Override
@@ -371,9 +371,9 @@ public class TurtleBrain implements ITurtleAccess {
     @Override
     public int getFuelLimit() {
         if (this.m_owner.getFamily() == ComputerFamily.ADVANCED) {
-            return ComputerCraft.advancedTurtleFuelLimit;
+            return ComputerCraft.getConfig().turtle.advanced_turtle_fuel_limit;
         } else {
-            return ComputerCraft.turtleFuelLimit;
+            return ComputerCraft.getConfig().turtle.fuel_limit;
         }
     }
 
@@ -565,7 +565,7 @@ public class TurtleBrain implements ITurtleAccess {
         if (this.m_animation != TurtleAnimation.NONE) {
             World world = this.getWorld();
 
-            if (ComputerCraft.turtlesCanPush) {
+            if (ComputerCraft.getConfig().turtle.can_push) {
                 // Advance entity pushing
                 if (this.m_animation == TurtleAnimation.MOVE_FORWARD || this.m_animation == TurtleAnimation.MOVE_BACK || this.m_animation == TurtleAnimation.MOVE_UP || this.m_animation == TurtleAnimation.MOVE_DOWN) {
                     BlockPos pos = this.getPosition();

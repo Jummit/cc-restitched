@@ -252,7 +252,7 @@ public class TileMonitor extends TileGeneric implements IPeripheralTile {
 
     @Override
     public double getRenderDistance() {
-        return ComputerCraft.monitorDistanceSq;
+        return ComputerCraft.getConfig().peripheral.monitor_distance;
     }
 
     @Override
@@ -461,7 +461,7 @@ public class TileMonitor extends TileGeneric implements IPeripheralTile {
         }
 
         int width = left.m_width + this.m_width;
-        if (width > ComputerCraft.monitorWidth) {
+        if (width > ComputerCraft.getConfig().term_sizes.monitor.width) {
             return false;
         }
 
@@ -480,7 +480,7 @@ public class TileMonitor extends TileGeneric implements IPeripheralTile {
         }
 
         int width = this.m_width + right.m_width;
-        if (width > ComputerCraft.monitorWidth) {
+        if (width > ComputerCraft.getConfig().term_sizes.monitor.width) {
             return false;
         }
 
@@ -499,7 +499,7 @@ public class TileMonitor extends TileGeneric implements IPeripheralTile {
         }
 
         int height = above.m_height + this.m_height;
-        if (height > ComputerCraft.monitorHeight) {
+        if (height > ComputerCraft.getConfig().term_sizes.monitor.height) {
             return false;
         }
 
@@ -518,7 +518,7 @@ public class TileMonitor extends TileGeneric implements IPeripheralTile {
         }
 
         int height = this.m_height + below.m_height;
-        if (height > ComputerCraft.monitorHeight) {
+        if (height > ComputerCraft.getConfig().term_sizes.monitor.height) {
             return false;
         }
 
